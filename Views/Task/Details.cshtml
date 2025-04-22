@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TaskMasterPro.Models.TaskModel
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<h2 class="mb-4">📄 Task Details</h2>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h4 class="card-title text-primary mb-4">@Model.Title</h4>
+        <dl class="row mb-0">
+            <dt class="col-sm-3 fw-semibold">📝 Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3 fw-semibold">📂 Category</dt>
+            <dd class="col-sm-9">@Model.Category</dd>
+
+            <dt class="col-sm-3 fw-semibold">⚡ Priority</dt>
+            <dd class="col-sm-9">@Model.Priority</dd>
+
+            <dt class="col-sm-3 fw-semibold">📅 Due Date</dt>
+            <dd class="col-sm-9">@Model.DueDate.ToString("dd MMM yyyy")</dd>
+
+            <dt class="col-sm-3 fw-semibold">🕒 Created At</dt>
+            <dd class="col-sm-9">@Model.CreatedAt.ToString("dd MMM yyyy hh:mm tt")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4 d-flex gap-2">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary px-4">✏️ Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary px-4">↩ Back to List</a>
+</div>
+
+@* <div>
+    <h4>@Model.Title</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Description</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+
+        <dt class="col-sm-2">Category</dt>
+        <dd class="col-sm-10">@Model.Category</dd>
+
+        <dt class="col-sm-2">Priority</dt>
+        <dd class="col-sm-10">@Model.Priority</dd>
+
+        <dt class="col-sm-2">Due Date</dt>
+        <dd class="col-sm-10">@Model.DueDate.ToShortDateString()</dd>
+        
+        <dt class="col-sm-2">Created At</dt> <!-- ✅ NEW FIELD -->
+        <dd class="col-sm-10">@Model.CreatedAt.ToString("dd MMM yyyy hh:mm tt")</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div> *@

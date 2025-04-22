@@ -1,0 +1,99 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<TaskMasterPro.Models.TaskModel>
+@{
+    ViewData["Title"] = "Your Tasks";
+
+    var uniqueCategories = Model.Select(t => t.Category).Distinct().ToList();
+    var uniquePriorities = Model.Select(t => t.Priority).Distinct().ToList();
+
+    string selectedCategory = Context.Request.Query["category"];
+    string selectedPriority = Context.Request.Query["priority"];
+
+    var filteredTasks = Model
+        .Where(t => string.IsNullOrEmpty(selectedCategory) || t.Category.ToString() == selectedCategory)
+        .Where(t => string.IsNullOrEmpty(selectedPriority) || t.Priority.ToString() == selectedPriority);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">📝 Your Tasks</h2>
+    <a class="btn btn-outline-success" asp-action="Create">+ Add New Task</a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label for="priority" class="form-label">Filter by Priority</label>
+        <select class="form-select" name="priority" onchange="this.form.submit()">
+            <option value="">-- All Priorities --</option>
+            @foreach (var p in uniquePriorities)
+            {
+                var pStr = p.ToString();
+                <option value="@pStr" selected="@(pStr == selectedPriority ? "selected" : null)">@pStr</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label for="category" class="form-label">Filter by Category</label>
+        <select class="form-select" name="category" onchange="this.form.submit()">
+            <option value="">-- All Categories --</option>
+            @foreach (var c in uniqueCategories)
+            {
+                var cStr = c.ToString();
+                <option value="@cStr" selected="@(cStr == selectedCategory ? "selected" : null)">@cStr</option>
+            }
+        </select>
+    </div>
+</form>
+
+@if (!filteredTasks.Any())
+{
+    <div class="alert alert-info">No tasks found with selected filters.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in filteredTasks)
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td>@task.Category</td>
+                        <td>@task.Priority</td>
+                        <td>@task.DueDate.ToString("dd MMM yyyy")</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-outline-primary btn-sm me-1">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-outline-warning btn-sm me-1">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

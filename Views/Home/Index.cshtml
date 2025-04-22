@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+    var userName = User.Identity.IsAuthenticated ? User.Identity.Name : null;
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Welcome to TaskMaster Pro 📝</h1>
+    <p class="lead">Manage your tasks smartly with a clean, modern dashboard.</p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p class="lead">Hello, <strong>@userName</strong>! Ready to take control of your tasks?</p>
+        <a class="btn btn-primary" asp-controller="Task" asp-action="Index">Go to My Tasks</a>
+    }
+    else
+    {
+        <p class="lead">Organize smarter. Work better. Sign in or create your free account to begin.</p>
+        <a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Login">Log In</a>
+        <a class="btn btn-outline-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body">
+                        <h5 class="card-title">My Tasks</h5>
+                        <p class="card-text">View and manage your tasks.</p>
+                        <a href="@Url.Action("Index", "Task")" class="btn btn-primary btn-sm">View Tasks</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Categories</h5>
+                        <p class="card-text">Organize your tasks by type.</p>
+                        <a asp-controller="Task" asp-action="Index" class="btn btn-secondary btn-sm">Manage Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Priorities</h5>
+                        <p class="card-text">Set task urgency levels.</p>
+                        <a asp-controller="Task" asp-action="Index" class="btn btn-warning btn-sm">Set Priorities</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body">
+                        <h5 class="card-title">DueDate</h5>
+                        <p class="card-text">Never miss a due date again.</p>
+                        <a asp-controller="Task" asp-action="Index" class="btn btn-danger btn-sm">View DueDate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

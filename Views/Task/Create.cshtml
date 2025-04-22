@@ -1,0 +1,109 @@
+﻿@using TaskMasterPro.Models.Enum
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model TaskMasterPro.Models.TaskModel
+@{
+    ViewData["Title"] = "Create Task";
+}
+
+<h2 class="mb-4">Create Task</h2>
+
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h4 class="alert-heading">Please fix these errors:</h4>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+
+<form asp-action="Create" method="post" class="needs-validation">
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label fw-bold"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Description" class="form-label fw-bold"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Category" class="form-label fw-bold"></label>
+        <select asp-for="Category" class="form-select"
+                asp-items="Html.GetEnumSelectList<TaskCategory>()">
+        </select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="DueDate" class="form-label fw-bold"></label>
+        <input asp-for="DueDate" type="date"
+               min="@DateTime.Now.ToString("yyyy-MM-dd")"
+               class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger small"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="Priority" class="form-label fw-bold"></label>
+        <select asp-for="Priority" class="form-select"
+                asp-items="Html.GetEnumSelectList<PriorityLevel>()">
+        </select>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-outline-success px-4">✔ Create</button>
+        <a asp-action="Index" class="btn btn-outline-secondary px-4">↩ Back</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@* <h2>Create Task</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<TaskMasterPro.Models.Enum.TaskCategory>()"></select>
+    </div>
+
+  <div class="form-group"> 
+        <label asp-for="DueDate"></label>
+        <input asp-for="DueDate" type="date" 
+               min="@DateTime.Now.ToString("yyyy-MM-dd")" 
+               class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Priority"></label>
+        <select asp-for="Priority" class="form-control"
+                asp-items="Html.GetEnumSelectList<PriorityLevel>()">
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
