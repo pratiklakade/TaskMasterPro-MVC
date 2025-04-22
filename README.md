@@ -64,7 +64,7 @@ Update-Database
 ✍️ Author
 Pratik Lakade L.
 .NET Developer | WPF | MVC | ASP.NET Core
-LinkedIn (update link if needed)
+LinkedIn ([update link if needed](https://linkedin.com/in/pratik-lakade-9aaab6136))
 
 💡 Future Enhancements
 🔔 Email/SMS Reminders
